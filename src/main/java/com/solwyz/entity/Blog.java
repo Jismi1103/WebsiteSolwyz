@@ -9,44 +9,61 @@ import lombok.AllArgsConstructor;
 @Entity
 @AllArgsConstructor
 public class Blog {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String title;
-	private String description;
-	private String image;
-	
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String title;
+
+    private String shortDescription;
+
+    private String blogShortDescription;
+
+    private String image;
+
+    public Blog() {}
+
+    // Getters and setters for all fields
+    // (You already added them for id, title, description, image — add for the new ones too)
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public String getBlogShortDescription() {
+        return blogShortDescription;
+    }
+
+    public void setBlogShortDescription(String blogShortDescription) {
+        this.blogShortDescription = blogShortDescription;
+    }
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-	
-	public Blog() {
-		super();
-		
-	}
+
 	public String getImage() {
 		return image;
 	}
+
 	public void setImage(String image) {
 		this.image = image;
 	}
-
-	
 }

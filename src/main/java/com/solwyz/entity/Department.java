@@ -1,19 +1,26 @@
 package com.solwyz.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 
 @Entity
 @AllArgsConstructor
-public class Category {
+public class Department {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	
+//	@OneToMany
+//    private List<Designation> designations = new ArrayList<>();
 	
 	public Long getId() {
 		return id;
@@ -27,7 +34,7 @@ public class Category {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Category() {
+	public Department() {
 		super();
 		
 	}
