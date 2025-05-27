@@ -1,5 +1,9 @@
 package com.solwyz.entity;
 
+import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,9 +22,16 @@ public class JobDetails {
 	private String experience;
 	private String jobType;
 	private String qualification;
-	private String responsibilities;
-	private String requirements;
+	
 	private String emailId;
+	
+	@ElementCollection
+	@Column(name = "responsibility")
+	private List<String> responsibilities;
+	
+	@ElementCollection
+	@Column(name = "requirement")
+	private List<String> requirements;
 	
 	public Long getId() {
 		return id;
@@ -58,18 +69,7 @@ public class JobDetails {
 	public void setQualification(String qualification) {
 		this.qualification = qualification;
 	}
-	public String getResponsibilities() {
-		return responsibilities;
-	}
-	public void setResponsibilities(String responsibilities) {
-		this.responsibilities = responsibilities;
-	}
-	public String getRequirements() {
-		return requirements;
-	}
-	public void setRequirements(String requirements) {
-		this.requirements = requirements;
-	}
+	
 	public String getEmailId() {
 		return emailId;
 	}
@@ -80,6 +80,18 @@ public class JobDetails {
 	public JobDetails() {
 		super();
 		
+	}
+	public List<String> getResponsibilities() {
+		return responsibilities;
+	}
+	public void setResponsibilities(List<String> responsibilities) {
+		this.responsibilities = responsibilities;
+	}
+	public List<String> getRequirements() {
+		return requirements;
+	}
+	public void setRequirements(List<String> requirements) {
+		this.requirements = requirements;
 	}
 	
 	

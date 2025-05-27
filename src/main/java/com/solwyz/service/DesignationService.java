@@ -5,9 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.solwyz.entity.Department;
 import com.solwyz.entity.Designation;
+import com.solwyz.entity.JobDetails;
 import com.solwyz.exception.ResourceNotFoundException;
+import com.solwyz.repo.DepartmentRepository;
 import com.solwyz.repo.DesignationRepository;
+import com.solwyz.repo.JobDetailsRepository;
 
 @Service
 public class DesignationService {
@@ -15,10 +19,30 @@ public class DesignationService {
 	@Autowired
 	private DesignationRepository designationRepository;
 
+	@Autowired
+	private DepartmentRepository departmentRepository;
+	
+	@Autowired
+	private JobDetailsRepository jobDetailsRepository;
+	
 	public Designation addDesignation(Designation designation) {
+	    // Fetch department by ID if present
+	    if (designation.getDepartment() != null && designation.getDepartment().getId() != null) {
+	        Department department = departmentRepository.findById(designation.getDepartment().getId())
+	                .orElseThrow(() -> new RuntimeException("Department not found"));
+	        designation.setDepartment(department);
+	    }
 
-		return designationRepository.save(designation);
+	    // Fetch job details by ID if present
+	    if (designation.getJobDetails() != null && designation.getJobDetails().getId() != null) {
+	        JobDetails jobDetails = jobDetailsRepository.findById(designation.getJobDetails().getId())
+	                .orElseThrow(() -> new RuntimeException("JobDetails not found"));
+	        designation.setJobDetails(jobDetails);
+	    }
+
+	    return designationRepository.save(designation);
 	}
+
 
 	public List<Designation> getAllDesignation() {
 

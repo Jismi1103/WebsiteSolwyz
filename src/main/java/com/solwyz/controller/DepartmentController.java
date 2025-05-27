@@ -16,34 +16,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.solwyz.entity.Category;
+import com.solwyz.entity.Department;
 import com.solwyz.pojo.response.ApiResponse;
-import com.solwyz.service.CategoryService;
+import com.solwyz.service.DepartmentService;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api/category")
-public class CategoryController {
+@RequestMapping("/api/departments")
+@Tag(name = "department Authentication", description = "APIs for All department page")
+public class DepartmentController {
 	
 	@Autowired
-	private CategoryService categoryService;
+	private DepartmentService categoryService;
 	
 	@PostMapping("/create")
-	public ResponseEntity<Category> addCategory(@RequestBody Category category) {
+	public ResponseEntity<Department> addCategory(@RequestBody Department category) {
 		return ResponseEntity.ok(categoryService.addCategory(category));
 	}
 	
 	@GetMapping("/all")
-	public ResponseEntity<ApiResponse<List<Category>>> getAllCategories() {
-	    List<Category> categories = categoryService.getAllCategories();
+	public ResponseEntity<ApiResponse<List<Department>>> getAllCategories() {
+	    List<Department> categories = categoryService.getAllCategories();
 	    return ResponseEntity.ok(new ApiResponse<>("success", categories));
 	}
 
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<ApiResponse<Category>> getCategoryById(@PathVariable Long id) {
-	    Category category = categoryService.getCategoryById(id);
+	public ResponseEntity<ApiResponse<Department>> getCategoryById(@PathVariable Long id) {
+	    Department category = categoryService.getCategoryById(id);
 	    return ResponseEntity.ok(new ApiResponse<>("success", category));
 	}
 
@@ -55,8 +58,8 @@ public class CategoryController {
 	    }
 	 
 	 @PutMapping("/{id}")
-	    public ResponseEntity<Category> updateCategory(@PathVariable Long id, @RequestBody Category category) {
-	        Category updatedCategory = categoryService.updateCategory(id, category);
+	    public ResponseEntity<Department> updateCategory(@PathVariable Long id, @RequestBody Department category) {
+	        Department updatedCategory = categoryService.updateCategory(id, category);
 	        return new ResponseEntity<>(updatedCategory, HttpStatus.OK);
 	    }
 }

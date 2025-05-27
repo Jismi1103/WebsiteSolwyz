@@ -2,10 +2,16 @@ package com.solwyz.entity;
 
 
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import lombok.AllArgsConstructor;
 
 @Entity
@@ -23,7 +29,13 @@ public class ContactUs {
 	private long budget;
 	private String message;
 	
+	@CreationTimestamp
+	private LocalDateTime createdAt;
 	
+	 @PrePersist
+    protected void onCreate() {
+	        this.createdAt = LocalDateTime.now();
+	    }
 	public Long getId() {
 		return id;
 	}
@@ -72,10 +84,20 @@ public class ContactUs {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+	
 	public ContactUs() {
 		super();
 		
 	}
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+	
+	
+	
 	
 	
 
