@@ -70,4 +70,7 @@ public class BlogService {
         }
         blogRepository.deleteById(id);
     }
+    public List<Blog> getSimilarBlogs(Long excludedId) {
+        return blogRepository.findTop3ByIdNotOrderByCreatedAtDesc(excludedId);
+    }
 }

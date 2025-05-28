@@ -13,25 +13,32 @@ import com.solwyz.repo.ApplicationFormRepository;
 @Service
 public class ApplicationFormService {
 
-	@Autowired
-	 private ApplicationFormRepository applicationFormRepository;
-	
-	@Autowired
-	    private  CloudinaryService cloudinaryService;
+    @Autowired
+    private ApplicationFormRepository applicationFormRepository;
 
-	    public ApplicationForm createApplication(String name, String email, String phoneNo, LocalDate dateOfBirth,
-	                                             String highestQualification, MultipartFile resumeFile) throws IOException {
-	        // Upload resume PDF to Cloudinary with resource_type "raw"
-	        String resumeUrl = cloudinaryService.uploadFile(resumeFile, "raw");
+    @Autowired
+    private CloudinaryService cloudinaryService;
 
-	        ApplicationForm applicationForm = new ApplicationForm();
-	        applicationForm.setName(name);
-	        applicationForm.setEmail(email);
-	        applicationForm.setPhoneNo(phoneNo);
-	        applicationForm.setDateOfBirth(dateOfBirth);
-	        applicationForm.setHighestQualification(highestQualification);
-	        applicationForm.setResumeUrl(resumeUrl);
+    public ApplicationForm createApplication(
+            String name,
+            String email,
+            String phoneNo,
+            LocalDate dateOfBirth,
+            String highestQualification,
+            MultipartFile resumeFile) throws IOException {
 
-	        return applicationFormRepository.save(applicationForm);
-	    }
-	}
+        // Upload the resume PDF to Cloudinary
+        String resumeUrl = cloudinaryService.uploadPdf(resumeFile);
+
+        // Create and save the application form
+        ApplicationForm applicationForm = new ApplicationForm();
+        applicationForm.setName(name);
+        applicationForm.setEmail(email);
+        applicationForm.setPhoneNo(phoneNo);
+        applicationForm.setDateOfBirth(dateOfBirth);
+        applicationForm.setHighestQualification(highestQualification);
+        applicationForm.setResumeUrl(resumeUrl);
+
+        return applicationFormRepository.save(applicationForm);
+    }
+}

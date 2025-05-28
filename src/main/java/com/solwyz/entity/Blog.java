@@ -1,5 +1,9 @@
 package com.solwyz.entity;
 
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,8 +28,9 @@ public class Blog {
 
     public Blog() {}
 
-    // Getters and setters for all fields
-    // (You already added them for id, title, description, image — add for the new ones too)
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
 
     public String getShortDescription() {
         return shortDescription;
@@ -66,4 +71,13 @@ public class Blog {
 	public void setImage(String image) {
 		this.image = image;
 	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+	
 }

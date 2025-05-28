@@ -1,6 +1,8 @@
 package com.solwyz.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -52,6 +54,18 @@ public class BlogController {
 	    @GetMapping("/{id}")
 	    public ResponseEntity<Blog> getBlogById(@PathVariable Long id) {
 	        return ResponseEntity.ok(blogService.getBlogById(id));
+	    }
+	    
+	    @GetMapping("/similar/{id}")
+	    public ResponseEntity<Map<String, Object>> getBlogWithSimilar(@PathVariable Long id) {
+	        Blog blog = blogService.getBlogById(id);
+	        List<Blog> similarBlogs = blogService.getSimilarBlogs(id);
+
+	        Map<String, Object> response = new HashMap<>();
+	        response.put("blog", blog);
+	        response.put("similarBlogs", similarBlogs);
+
+	        return ResponseEntity.ok(response);
 	    }
 
 	    @PutMapping(value = "/update/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

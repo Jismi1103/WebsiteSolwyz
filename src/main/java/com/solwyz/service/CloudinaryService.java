@@ -1,5 +1,6 @@
 package com.solwyz.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -8,10 +9,6 @@ import com.cloudinary.utils.ObjectUtils;
 
 import java.io.IOException;
 import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Value;
-
-
 
 @Service
 public class CloudinaryService {
@@ -29,22 +26,34 @@ public class CloudinaryService {
         ));
     }
 
-    public String uploadFile(MultipartFile file, String resourceType) throws IOException {
+    private String uploadFile(MultipartFile file, String resourceType) throws IOException {
+        if (file == null || file.isEmpty()) {
+            throw new IOException("No file provided for upload.");
+        }
+
         Map<String, Object> options = ObjectUtils.asMap(
-                "resource_type", resourceType,         // should be "raw" for PDF
-                "type", "upload"                       // ensures public URL
-        );
+        	    "resource_type", resourceType,   // required: "raw" for PDF
+        	    "type", "upload",                // <- this is important!
+        	    "use_filename", true,
+        	    "unique_filename", false,
+        	    "overwrite", true
+        	);
+
         Map<?, ?> uploadResult = cloudinary.uploader().upload(file.getBytes(), options);
-        return uploadResult.get("secure_url").toString();
+        System.out.println("Cloudinary Upload Result: " + uploadResult); // Debug log
+
+        Object secureUrl = uploadResult.get("secure_url");
+        if (secureUrl == null || secureUrl.toString().isBlank()) {
+            throw new IOException("Upload failed: Cloudinary did not return a valid secure URL.");
+        }
+
+        return secureUrl.toString();
     }
 
-
-    // Convenience method for images
     public String uploadImage(MultipartFile file) throws IOException {
         return uploadFile(file, "image");
     }
 
-    // Convenience method for PDFs and other raw files
     public String uploadPdf(MultipartFile file) throws IOException {
         return uploadFile(file, "raw");
     }

@@ -26,14 +26,14 @@ public class DesignationService {
 	private JobDetailsRepository jobDetailsRepository;
 	
 	public Designation addDesignation(Designation designation) {
-	    // Fetch department by ID if present
+	    
 	    if (designation.getDepartment() != null && designation.getDepartment().getId() != null) {
 	        Department department = departmentRepository.findById(designation.getDepartment().getId())
 	                .orElseThrow(() -> new RuntimeException("Department not found"));
 	        designation.setDepartment(department);
 	    }
 
-	    // Fetch job details by ID if present
+	    
 	    if (designation.getJobDetails() != null && designation.getJobDetails().getId() != null) {
 	        JobDetails jobDetails = jobDetailsRepository.findById(designation.getJobDetails().getId())
 	                .orElseThrow(() -> new RuntimeException("JobDetails not found"));
