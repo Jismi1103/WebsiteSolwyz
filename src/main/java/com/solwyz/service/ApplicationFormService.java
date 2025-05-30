@@ -34,17 +34,17 @@ public class ApplicationFormService {
             String phoneNo,
             LocalDate dateOfBirth,
             String highestQualification,
-            Long designationId, // 🔄 Add this
+            Long designationId, 
             MultipartFile resumeFile) throws IOException {
 
-        // Upload resume and get URL
+        
         String resumeUrl = cloudinaryService.uploadPdf(resumeFile);
 
-        // 🔍 Fetch designation from database
+       
         Designation designation = designationRepository.findById(designationId)
                 .orElseThrow(() -> new RuntimeException("Designation not found"));
 
-        // 📝 Create ApplicationForm entity
+        
         ApplicationForm applicationForm = new ApplicationForm();
         applicationForm.setName(name);
         applicationForm.setEmail(email);
@@ -52,9 +52,9 @@ public class ApplicationFormService {
         applicationForm.setDateOfBirth(dateOfBirth);
         applicationForm.setHighestQualification(highestQualification);
         applicationForm.setResumeUrl(resumeUrl);
-        applicationForm.setDesignation(designation); // 🔗 Link designation
+        applicationForm.setDesignation(designation); 
 
-        // 🔔 Create Notification
+        
         notificationService.createNotification("New job application received");
 
         return applicationFormRepository.save(applicationForm);
