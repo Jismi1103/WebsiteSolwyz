@@ -41,7 +41,7 @@ public class ApplicationFormController {
 	        @RequestParam String phoneNo,
 	        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateOfBirth,
 	        @RequestParam String highestQualification,
-	        @RequestParam Long designationId, // 🔄 Add this
+	        @RequestParam Long designationId, 
 	        @RequestPart("resume") MultipartFile resumeFile) throws IOException {
 
 	    ApplicationForm savedApplication = applicationFormService.createApplication(

@@ -82,7 +82,7 @@ public class AuthController {
 	    Optional<User> user = userRepository.findByUsername(username);
 
 	    if (user.isEmpty()) {
-	        // Handle the case where the user is not found, return a more informative error message.
+	    
 	        return ResponseEntity.status(HttpStatus.NOT_FOUND)
 	                .body(new MessageResponse("User not found with the provided username"));
 	    }
@@ -91,7 +91,7 @@ public class AuthController {
 	    userService.createPasswordResetTokenForUser(user.get(), token);
 	    userService.sendResetTokenEmail(token, user.get());
 
-	    // Return the success message wrapped in a ResponseEntity
+	   
 	    return ResponseEntity.ok(new MessageResponse("Reset Password Link Sent to Registered Email or Mobile"));
 	}
 

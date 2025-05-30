@@ -45,7 +45,7 @@ public class BlogService {
     }
 
     public Blog updateBlog(Long id, String title, String shortDescription, String blogShortDescription, MultipartFile imageFile) {
-        Blog blog = getBlogById(id);  // throws if not found
+        Blog blog = getBlogById(id);  
 
         blog.setTitle(title);
         blog.setShortDescription(shortDescription);
