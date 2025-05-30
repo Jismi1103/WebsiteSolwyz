@@ -44,10 +44,16 @@ public class DepartmentController {
 	}
 
 	
+//	@GetMapping("/{id}")
+//	public ResponseEntity<ApiResponse<Department>> getCategoryById(@PathVariable Long id) {
+//	    Department category = categoryService.getCategoryById(id);
+//	    return ResponseEntity.ok(new ApiResponse<>("success", category));
+//	}
+	
 	@GetMapping("/{id}")
-	public ResponseEntity<ApiResponse<Department>> getCategoryById(@PathVariable Long id) {
-	    Department category = categoryService.getCategoryById(id);
-	    return ResponseEntity.ok(new ApiResponse<>("success", category));
+	public ResponseEntity<ApiResponse<Department>> getDepartmentWithDesignations(@PathVariable Long id) {
+	    Department department = categoryService.getDepartmentById(id);
+	    return ResponseEntity.ok(new ApiResponse<>("success", department));
 	}
 
 

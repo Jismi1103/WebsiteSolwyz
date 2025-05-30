@@ -3,6 +3,7 @@ package com.solwyz.controller;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -64,9 +65,9 @@ public class ApplicationFormController {
     
     //byDesignation-list by designation
     @GetMapping("/all/{designationId}")
-    public ResponseEntity<List<ApplicationForm>> getApplicationsByDesignation(@PathVariable Long designationId) {
-        List<ApplicationForm> applications = applicationFormService.getApplicationsByDesignationId(designationId);
-        return ResponseEntity.ok(applications);
+    public ResponseEntity<Map<String, Object>> getApplicationsByDesignation(@PathVariable Long designationId) {
+        Map<String, Object> response = applicationFormService.getApplicationsByDesignationId(designationId);
+        return ResponseEntity.ok(response);
     }
 
 
