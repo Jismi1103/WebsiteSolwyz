@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.solwyz.entity.Department;
+import com.solwyz.entity.Designation;
 import com.solwyz.pojo.response.ApiResponse;
 import com.solwyz.service.DepartmentService;
 
@@ -50,10 +51,11 @@ public class DepartmentController {
 //	    return ResponseEntity.ok(new ApiResponse<>("success", category));
 //	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<ApiResponse<Department>> getDepartmentWithDesignations(@PathVariable Long id) {
-	    Department department = categoryService.getDepartmentById(id);
-	    return ResponseEntity.ok(new ApiResponse<>("success", department));
+
+	@GetMapping("/{departmentId}")
+	public ResponseEntity<ApiResponse<List<Designation>>> getDesignationsByDepartment(@PathVariable Long departmentId) {
+	    List<Designation> designations = categoryService.getDesignationsByDepartment(departmentId);
+	    return ResponseEntity.ok(new ApiResponse<>("success", designations));
 	}
 
 

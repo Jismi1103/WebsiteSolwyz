@@ -6,14 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.solwyz.entity.Department;
+import com.solwyz.entity.Designation;
 import com.solwyz.exception.ResourceNotFoundException;
 import com.solwyz.repo.DepartmentRepository;
+import com.solwyz.repo.DesignationRepository;
 
 @Service
 public class DepartmentService {
 
 	@Autowired
 	private DepartmentRepository departmentRepository;
+	
+	@Autowired
+	private DesignationRepository designationRepository;
+	
 
 	public Department addCategory(Department department) {
 		return departmentRepository.save(department);
@@ -45,9 +51,11 @@ public class DepartmentService {
 //	}
 
 	
-	 public Department getDepartmentById(Long id) {
-	        return departmentRepository.findById(id)
-	            .orElseThrow(() -> new ResourceNotFoundException("Department not found with id: " + id));
-	    }
+
+
+	public List<Designation> getDesignationsByDepartment(Long departmentId) {
+	    return designationRepository.findByDepartmentId(departmentId);
+	}
+
 
 }
