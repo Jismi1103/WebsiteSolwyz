@@ -39,9 +39,15 @@ public class DepartmentService {
 		return departmentRepository.save(existingCategory);
 	}
 
-	public Department getCategoryById(Long id) {
-		return departmentRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("department not found with id: " + id));
-	}
+//	public Department getCategoryById(Long id) {
+//		return departmentRepository.findById(id)
+//				.orElseThrow(() -> new ResourceNotFoundException("department not found with id: " + id));
+//	}
+
+	
+	 public Department getDepartmentById(Long id) {
+	        return departmentRepository.findById(id)
+	            .orElseThrow(() -> new ResourceNotFoundException("Department not found with id: " + id));
+	    }
 
 }

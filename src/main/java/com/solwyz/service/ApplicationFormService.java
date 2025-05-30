@@ -2,7 +2,9 @@ package com.solwyz.service;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -99,8 +101,13 @@ public class ApplicationFormService {
     }
 
     
-    public List<ApplicationForm> getApplicationsByDesignationId(Long designationId) {
-        return applicationFormRepository.findByDesignationId(designationId);
-    }
+    public Map<String, Object> getApplicationsByDesignationId(Long designationId) {
+        List<ApplicationForm> applications = applicationFormRepository.findByDesignationId(designationId);
 
+        Map<String, Object> response = new HashMap<>();
+        response.put("count", applications.size());
+        response.put("applications", applications);
+
+        return response;
+    }
 }
