@@ -1,6 +1,8 @@
 package com.solwyz.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.solwyz.entity.ContactUs;
 import com.solwyz.pojo.response.ApiResponse;
+import com.solwyz.repo.AuditRepository;
+import com.solwyz.repo.ContactUsRepository;
 import com.solwyz.service.ContactUsService;
 
 @CrossOrigin(origins = "*")
@@ -27,6 +31,13 @@ public class ContactUsController {
 	
 	@Autowired
 	private ContactUsService contactUsService;
+	
+	@Autowired 
+	private ContactUsRepository contactRepo;
+	
+	@Autowired
+	private AuditRepository auditRepo;
+	
 	
 	@PostMapping("/create")
 	public ResponseEntity<ContactUs>addContact(@RequestBody ContactUs contact){
@@ -56,4 +67,18 @@ public class ContactUsController {
 	    contactUsService.deleteContact(id);
 	    return ResponseEntity.ok(new ApiResponse<>("Contact deleted successfully", null));
 	}
+	
+//	@GetMapping("/count")
+//	public ResponseEntity<Long> getEnquiryCount() {
+//	    return ResponseEntity.ok(contactUsService.getEnquiryCount());
+//	}
+
+	@GetMapping("/counts")
+	public ResponseEntity<Map<String, Long>> getCounts() {
+	    Map<String, Long> counts = new HashMap<>();
+	    counts.put("contactEnquiryCount", contactRepo.count());
+	    counts.put("websiteAuditCount", auditRepo.count());
+	    return ResponseEntity.ok(counts);
+	}
+
 }

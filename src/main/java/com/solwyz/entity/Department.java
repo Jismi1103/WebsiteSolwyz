@@ -18,9 +18,7 @@ public class Department {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	
-//	@OneToMany
-//    private List<Designation> designations = new ArrayList<>();
+
 	
 	public Long getId() {
 		return id;
