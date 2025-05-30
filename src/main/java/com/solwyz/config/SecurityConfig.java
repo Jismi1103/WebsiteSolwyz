@@ -28,14 +28,12 @@ public class SecurityConfig {
 	    CorsConfiguration config = new CorsConfiguration();
 
 	    config.setAllowedOrigins(List.of(
-	        "http://localhost:3000"
+	        "http://localhost:3000",
+	        "http://localhost:5173" 
 	    ));
 
 	    config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-
-	    // Instead of *, specify typical headers you expect:
 	    config.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
-
 	    config.setAllowCredentials(true);
 
 	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -43,4 +41,5 @@ public class SecurityConfig {
 
 	    return source;
 	}
+
 }

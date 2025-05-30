@@ -18,10 +18,14 @@ public class AuditService {
 	private AuditRepository auditRepository;
 	
 
+	@Autowired
+	private NotificationService notificationService;
+
 	public Audit createAudit(Audit audit) {
-		
-		return auditRepository.save(audit);
+	    notificationService.createNotification("You have received a new website audit request");
+	    return auditRepository.save(audit);
 	}
+
 
 
 	public List<Audit> getAllAudit() {

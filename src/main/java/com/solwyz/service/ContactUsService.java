@@ -19,9 +19,13 @@ public class ContactUsService {
 	
 	@Autowired
 	private ContactUsRepository contactUsRepository;
+	
+	@Autowired
+	private NotificationService notificationService;
 
 	public ContactUs addContact(ContactUs contact) {
-		return contactUsRepository.save(contact);
+	    notificationService.createNotification("New contact enquiry received");
+	    return contactUsRepository.save(contact);
 	}
 
 	public List<ContactUs> getAllContacts() {
@@ -40,5 +44,10 @@ public class ContactUsService {
 		    Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
 		    return contactUsRepository.findAll(pageable);
 		}
+
+//	public long getEnquiryCount() {
+//		
+//		return contactUsRepository.count(); 
+//	}
 
 }
